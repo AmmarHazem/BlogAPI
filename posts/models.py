@@ -38,3 +38,16 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('-timestamp', 'author')
+
+
+class Replay(models.Model):
+    comment = models.ForeignKey(Comment, on_delete = models.CASCADE, related_name = 'replies')
+    author = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'replies')
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return f'Replay: {self.author}'
+
+    class Meta:
+        ordering = ('-timestamp', 'author')

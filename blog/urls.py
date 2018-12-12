@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from posts.views import CommentListAPIView, UserDetailAPIView, api_root, PostDetailAPIView, UserListAPIView, CommnetDetailAPIView
+from posts.views import CommentListAPIView, UserDetailAPIView, api_root, PostDetailAPIView, UserListAPIView, CommnetDetailAPIView, ReplayDetailAPIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('comments/', CommentListAPIView.as_view(), name = 'comment-list'),
     path('comments/<int:pk>', CommnetDetailAPIView.as_view(), name = 'comment-detail'),
+    path('replies/<int:pk>', ReplayDetailAPIView.as_view(), name = 'reply-detail'),
     path('user/', UserListAPIView.as_view(), name = 'user-list'),
     path('user/<username>/', UserDetailAPIView.as_view(), name = 'user-detail'),
     path('posts/', include('posts.urls')),

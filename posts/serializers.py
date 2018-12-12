@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Post, Comment
+from .models import Post, Comment, Replay
 
 
 class PostListSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,6 +33,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CommnetDetailSerialzer(serializers.HyperlinkedModelSerializer):
+    replies = serializers.HyperlinkedRelatedField(view_name = 'reply-detail', many = True, read_only = True)
     class Meta:
         model = Comment
         fields = '__all__'
@@ -59,4 +60,13 @@ class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'username', 'posts')
         extra_kwargs = {
             'url' : {'lookup_field' : 'username'}
+        }
+
+
+class ReplaySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Replay
+        fields = ('content', 'comment', 'author')
+        extra_kwargs = {
+            'author' : {'lookup_field' : 'username'},
         }
