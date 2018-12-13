@@ -6,6 +6,5 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('<slug:slug>/', views.PostDetailAPIView.as_view(), name = 'post-detail'),
-    path('', views.PostListAPIView.as_view(), name = 'post-list'),
+    
 ]

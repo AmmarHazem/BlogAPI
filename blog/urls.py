@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from posts.views import CommentListAPIView, UserDetailAPIView, api_root, PostDetailAPIView, UserListAPIView, CommnetDetailAPIView, ReplayDetailAPIView
+from posts.views import CommentListAPIView, UserDetailAPIView, api_root, PostDetailAPIView, UserListAPIView, CommnetDetailAPIView, ReplayDetailAPIView, PostListAPIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -31,7 +31,8 @@ urlpatterns = [
     path('replies/<int:pk>', ReplayDetailAPIView.as_view(), name = 'reply-detail'),
     path('user/', UserListAPIView.as_view(), name = 'user-list'),
     path('user/<username>/', UserDetailAPIView.as_view(), name = 'user-detail'),
-    path('posts/', include('posts.urls')),
+    path('posts/<slug:slug>/', PostDetailAPIView.as_view(), name = 'post-detail'),
+    path('posts/', PostListAPIView.as_view(), name = 'post-list'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', api_root, name = 'root'),
