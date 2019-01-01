@@ -14,7 +14,6 @@ from posts import permissions
 class PostListAPIView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
@@ -24,13 +23,12 @@ class PostDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = 'slug'
-    permission_classes = (IsAuthenticatedOrReadOnly, permissions.IsAuthorOrReadOnly,)
+    permission_classes = (permissions.IsAuthorOrReadOnly,)
 
 
 class CommentListAPIView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
@@ -39,13 +37,13 @@ class CommentListAPIView(generics.ListCreateAPIView):
 class CommnetDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommnetDetailSerialzer
-    permission_classes = (IsAuthenticatedOrReadOnly, permissions.IsAuthorOrReadOnly,)
+    permission_classes = (permissions.IsAuthorOrReadOnly,)
 
 
 class ReplayDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Replay.objects.all()
     serializer_class = ReplaySerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, permissions.IsAuthorOrReadOnly,)
+    permission_classes = (permissions.IsAuthorOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
@@ -54,7 +52,7 @@ class ReplayDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class UserListAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, permissions.IsAdminOrReadOnly)
+    permission_classes = (permissions.IsAdminOrReadOnly,)
 
 
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
